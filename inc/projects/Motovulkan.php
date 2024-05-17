@@ -52,11 +52,13 @@ class Motovulkan
     {
         $dom = (new Catalog($url, $this->cookies))->getHtmlDom();
 
+        $price = HtmlDom::getText($dom, '[data-hook="formatted-primary-price"]', ['clean' => true]);
+        
         $result = [
             'url' => $url,
             'title' => HtmlDom::getText($dom, '[data-hook="product-title"]'),
             'art' => HtmlDom::getText($dom, '[data-hook="sku"]', ['clean' => true]),
-            'prices' => HtmlDom::getText($dom, '[data-hook="formatted-primary-price"]', ['clean' => true]),
+            'price' => str_replace(',', '.', $price),
             'description' => HtmlDom::getText($dom, '[data-hook="description"]'),
             'options' => [],
             'images' => [],
