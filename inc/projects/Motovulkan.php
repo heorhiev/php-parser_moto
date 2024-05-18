@@ -2,8 +2,8 @@
 
 namespace projects;
 
-use app\Catalog;
-use app\HtmlDom;
+use app\parser\Catalog;
+use app\parser\HtmlDom;
 
 
 class Motovulkan

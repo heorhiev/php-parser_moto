@@ -1,7 +1,9 @@
 <?php
 
-namespace app;
+namespace app\parser;
 
+
+use app\CookiesFile;
 
 class Request
 {
