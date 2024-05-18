@@ -1,6 +1,6 @@
 <?php
 
-namespace methods;
+namespace app;
 
 
 class Login

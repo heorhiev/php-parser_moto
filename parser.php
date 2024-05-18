@@ -4,6 +4,7 @@ const COOKIES_DIR = __DIR__ . '/data';
 
 include(__DIR__ . '/inc/autoload.php');
 include(__DIR__ . '/inc/simplehtmldom/simple_html_dom.php');
+include(__DIR__ . '/../wp-load.php');
 
 $moto = new \projects\Motovulkan('58126', 'JUPNB');
 

@@ -2,8 +2,8 @@
 
 namespace projects;
 
-use methods\Catalog;
-use methods\HtmlDom;
+use app\Catalog;
+use app\HtmlDom;
 
 
 class Motovulkan
@@ -14,7 +14,7 @@ class Motovulkan
 
     public function __construct(string $account, string $password)
     {
-        $this->cookies = new \methods\CookiesFile(self::class);
+        $this->cookies = new \app\CookiesFile(self::class);
     }
 
 
