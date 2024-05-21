@@ -2,6 +2,8 @@
 
 namespace projects;
 
+use app\dto\PostDataDto;
+use app\DtoHelper;
 use app\parser\Catalog;
 use app\parser\HtmlDom;
 
@@ -48,6 +50,9 @@ class Motovulkan
     }
 
 
+    /**
+     * @return PostDataDto[]
+     */
     public function getPostData($url): array
     {
         $dom = (new Catalog($url, $this->cookies))->getHtmlDom();
@@ -86,6 +91,6 @@ class Motovulkan
             $result['images'][] = $img->getAttribute('href');
         }
 
-        return $result;
+        return DtoHelper::compose(PostDataDto::class, $result);
     }
 }
