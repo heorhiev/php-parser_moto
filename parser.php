@@ -9,7 +9,10 @@ include(__DIR__ . '/../wp-load.php');
 $moto = new \projects\Motovulkan('58126', 'JUPNB');
 
 foreach ($moto->getPostUrls() as $postUrl) {
-    $rows[] = $moto->getPostData($postUrl);
+    $postData = $moto->getPostData($postUrl);
+
+    \app\WPPost::create($postData);
+
     break;
 }
 
