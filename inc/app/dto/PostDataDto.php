@@ -10,6 +10,8 @@ class PostDataDto
     public $art;
     public $price;
     public $description;
-    public $options;
     public $images;
+
+    /** @var array[array{title: string, value: string}] */
+    public $options;
 }

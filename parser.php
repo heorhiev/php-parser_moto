@@ -16,7 +16,7 @@ foreach ($moto->getPostUrls() as $postUrl) {
     break;
 }
 
-print_r($rows);
+//print_r($rows);
 
 //$path = __DIR__ . 'data/export.csv';
 //$fp = fopen($path, 'w'); // open in write only mode (write at the start of the file)

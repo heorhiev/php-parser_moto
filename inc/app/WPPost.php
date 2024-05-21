@@ -10,10 +10,11 @@ class WPPost
 {
     public static function create(PostDataDto $dataDto)
     {
-
         $product = new WC_Product_Simple();
 
         $product->set_name($dataDto->title);
+
+        $product->set_sku($dataDto->art);
 
         $product->set_slug($dataDto->title);
 
@@ -30,10 +31,14 @@ class WPPost
             }
         }
 
-
-
 //        $product->set_category_ids( array( 19 ) );
 
-        $product->save();
+        $productId = $product->save();
+
+        foreach ($dataDto->options as $key => $option) {
+            add_post_meta($productId, $option['title'], $option['value']);
+        }
+
+        add_post_meta($productId, 'donor_url', $dataDto->url);
     }
 }

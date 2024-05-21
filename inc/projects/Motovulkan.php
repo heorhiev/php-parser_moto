@@ -50,10 +50,7 @@ class Motovulkan
     }
 
 
-    /**
-     * @return PostDataDto[]
-     */
-    public function getPostData($url): array
+    public function getPostData($url): PostDataDto
     {
         $dom = (new Catalog($url, $this->cookies))->getHtmlDom();
 
