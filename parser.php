@@ -8,13 +8,17 @@ include(__DIR__ . '/../wp-load.php');
 
 $moto = new \projects\Motovulkan('58126', 'JUPNB');
 
+$i = 0;
 foreach ($moto->getPostUrls() as $postUrl) {
     $postData = $moto->getPostData($postUrl);
 
-    \app\WPPost::create($postData);
-
-    break;
+    if ($postData) {
+        \app\WPPost::create($postData);
+        $i++;
+    }
 }
+
+echo "count: {$i}" . PHP_EOL;
 
 //print_r($rows);
 
