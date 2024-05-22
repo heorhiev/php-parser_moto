@@ -39,8 +39,6 @@ class Motovulkan
 
             foreach ($items as $item) {
                 $result[] = $item->getAttribute('href');
-
-                return $result;
             }
 
             $nextUrl = self::CATALOG_URL . "?page=" . (++$page);
