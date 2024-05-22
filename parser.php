@@ -12,6 +12,8 @@ foreach ($moto->getPostUrls() as $postUrl) {
     $postData = $moto->getPostData($postUrl);
 
     \app\WPPost::create($postData);
+
+    break;
 }
 
 //print_r($rows);

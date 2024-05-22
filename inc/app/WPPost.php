@@ -3,6 +3,7 @@
 namespace app;
 
 use app\dto\PostDataDto;
+use WC_Product_Attribute;
 use WC_Product_Simple;
 
 
@@ -10,6 +11,11 @@ class WPPost
 {
     public static function create(PostDataDto $dataDto)
     {
+        if (wc_get_product_id_by_sku($dataDto->art)) {
+            echo "Exists {$dataDto->art}" . PHP_EOL;
+            $dataDto->art = rand(9, 999);
+        }
+
         $product = new WC_Product_Simple();
 
         $product->set_name($dataDto->title);
@@ -24,7 +30,10 @@ class WPPost
 
         $attachments = [];
         foreach ($dataDto->images as $image) {
-            $downloadRemoteImage = new WPDownloadRemoteImage($image);
+            $downloadRemoteImage = new WPDownloadRemoteImage($image, [
+                'title' => $dataDto->title,
+            ]);
+
             $attachments[] = $downloadRemoteImage->download();
         }
 
@@ -35,16 +44,27 @@ class WPPost
 
 //        $product->set_category_ids( array( 19 ) );
 
-        $productId = $product->save();
 
         foreach ($dataDto->options as $key => $option) {
-            add_post_meta($productId, $option['title'], $option['value']);
+            $pa = new WC_Product_Attribute();
+            $pa->set_name(sanitize_text_field($option['title']));
+            $pa->set_options([$option['value']]);
+            $pa->set_visible(true);
+            $attributes[$key] = $pa;
         }
+
+        if (!empty($attributes)) {
+            $product->set_attributes($attributes);
+        }
+
+        $productId = $product->save();
 
         if ($attachments) {
             add_post_meta($productId, "images", json_encode($attachments));
         }
 
         add_post_meta($productId, 'donor_url', $dataDto->url);
+
+        echo "Saved {$productId}: url {$dataDto->url}" . PHP_EOL;
     }
 }
