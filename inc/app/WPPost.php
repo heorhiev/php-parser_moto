@@ -5,6 +5,7 @@ namespace app;
 use app\dto\PostDataDto;
 use WC_Product_Attribute;
 use WC_Product_Simple;
+use WC_Product;
 
 
 class WPPost
@@ -20,9 +21,11 @@ class WPPost
             return;
         }
 
-        if (wc_get_product_id_by_sku($dataDto->art)) {
-            echo "Exists {$dataDto->art}" . PHP_EOL;
-            $dataDto->art = rand(9, 999);
+        if ($productId = wc_get_product_id_by_sku($dataDto->art)) {
+            $WC_Product = new WC_Product($productId);
+            $WC_Product->delete(true);
+
+            echo "Exists {$dataDto->art}. Delete product {$productId}" . PHP_EOL;
         }
 
         $product = new WC_Product_Simple();
@@ -70,7 +73,7 @@ class WPPost
         $productId = $product->save();
 
         if ($attachments) {
-            add_post_meta($productId, "images", json_encode($attachments));
+            $product->set_gallery_image_ids($attachments);
         }
 
         add_post_meta($productId, 'donor_url', $dataDto->url);
