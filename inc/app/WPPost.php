@@ -70,11 +70,11 @@ class WPPost
             $product->set_attributes($attributes);
         }
 
-        $productId = $product->save();
-
         if ($attachments) {
             $product->set_gallery_image_ids($attachments);
         }
+
+        $productId = $product->save();
 
         add_post_meta($productId, 'donor_url', $dataDto->url);
 
