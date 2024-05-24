@@ -72,6 +72,7 @@ class WPPost
 
         if ($attachments) {
             $product->set_gallery_image_ids($attachments);
+            add_post_meta($productId, 'images', json_encode($attachments));
         }
 
         $productId = $product->save();
